@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 @RequestMapping("/portfolio")
 public class LoginController {
+    
     @Autowired
     PortfolioService portfolioService;
+    
     @RequestMapping(value = "/login")
     public String login(
             @RequestParam Optional<String> username,
@@ -28,5 +31,11 @@ public class LoginController {
             httpSession.setAttribute("watch_id", investor.getWatchs().iterator().next().getId());
         }
         return "redirect:/portfolio/index.jsp";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/portfolio/login.jsp";
     }
 }
