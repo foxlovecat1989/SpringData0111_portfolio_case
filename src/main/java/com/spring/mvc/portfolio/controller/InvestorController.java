@@ -38,14 +38,16 @@ public class InvestorController {
         investor.setEmail(jsonMap.get("email"));
         investor.setBalance(Integer.parseInt(jsonMap.get("balance")));
         investor.setPass(Boolean.FALSE);
+        // 設定認證碼
+        investor.setCode(Integer.toHexString(investor.hashCode()));
+        
         // 存檔 Investor
         portfolioService.getInvestorRepository().save(investor);
         // 存檔 Watch
         Watch watch = new Watch(investor.getUsername() + "投資組合", investor);
         portfolioService.getWatchRepository().save(watch);
         
-        // 設定認證碼
-        investor.setCode(Integer.toHexString(investor.hashCode()));
+        
         // 發送認證信
         emailService.send(investor);
         
