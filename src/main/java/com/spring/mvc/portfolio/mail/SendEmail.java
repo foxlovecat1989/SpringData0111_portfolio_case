@@ -23,12 +23,14 @@ import javax.mail.Session;
 import javax.mail.Transport;
 
 public class SendEmail {
+    // 測試
     public static void main(String[] args) throws Exception {
-        String personal = ""; // 發送者姓名
-        String to = ""; // 發送給誰 ? 若有多筆", "號隔開
-        String title = ""; // 信件 title
+        
+        String personal = "EdM"; // 發送者姓名
+        String to = "foxlovecat1989@gmail.com"; // 發送給誰 ? 若有多筆", "號隔開
+        String title = "helloworld"; // 信件 title
         // 信件內容 
-        String html = "";
+        String html = "helloworld, hihi!!!@@@";
         
         SendEmail sendEmail = new SendEmail();
         sendEmail.submit(personal, to, title, html);
@@ -36,8 +38,8 @@ public class SendEmail {
     
     public void submit(String personal, String to, String title, String html) throws Exception {
         // Gmail 與 授權碼(非 Google 密碼)
-        final String googleGmail = "xxx@gmail.com"; // 你的 Gmail
-        final String authPassword = "xxxxxxxxxxxxxx"; // 你的授權碼
+        final String googleGmail = "foxlovecat1989@gmail.com"; // 你的 Gmail
+        final String authPassword = "qbnyfwhbbyoohsxs"; // 你的授權碼
 
         // smpt 設定資訊
         Properties prop = new Properties();
@@ -60,7 +62,7 @@ public class SendEmail {
         Message message = new MimeMessage(session);
         
         // 發文者 一定會是你的 google email
-        InternetAddress ia = new InternetAddress("xxx@gmail.com"); // 你的 Gmail
+        InternetAddress ia = new InternetAddress(googleGmail); // 你的 Gmail
         ia.setPersonal(personal);
         message.setFrom(ia);
         
@@ -72,10 +74,10 @@ public class SendEmail {
         
         // Email 抬頭
         message.setSubject(title);
-
+        
+        // 二擇一
         // Email 內容純文字
         //message.setText("Dear Mail Crawler,\n\n Please do not spam my email!");
-        
         // Email 內容 HTML
         message.setContent(html, "text/html;charset=utf-8");
 
